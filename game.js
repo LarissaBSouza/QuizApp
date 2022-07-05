@@ -12,7 +12,7 @@ let availableQuestions = []
 
 let questions = [
     {
-        question: "De quem é a famosa frase: Penso, logo existo?",
+        question: "De quem é a famosa frase “Penso, logo existo”?",
         choice1: "Platão",
         choice2: "Galileu Galilei",
         choice3: "Descartes",
@@ -60,7 +60,7 @@ let questions = [
         answer: 2,
     },
     {
-        question: "Quem é o autor de “O Príncipe”?",
+        question: "Quem é o autor de “O Pequeno Príncipe”?",
         choice1: "Maquiavel",
         choice2: "Montesquieu",
         choice3: "Antoine de Saint-Exupéry",
@@ -135,5 +135,25 @@ choices.forEach(choice => {
         acceptingAnswers = false
         const selectedChoice = e.target
         const selectedAnswer = selectedChoice.dataset['number']
+
+        let classToApply = selectedAnswer == currentQuestion.answer ? 'correct' : 'incorrect'
+
+        if (classToApply === 'correct') {
+            incrementScore(SCORE_POINTS)
+        }
+
+        selectedChoice.parentElement.classList.add(classToApply)
+
+        setTimeout(() => {
+            selectedChoice.parentElement.classList.remove(classToApply)
+            getNewQuestion()
+        }, 1000)
     })
 })
+
+incrementScore = num => {
+    score += num
+    scoreText.innerText = score
+}
+
+startGame()
